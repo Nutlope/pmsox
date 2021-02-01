@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import constants from "./firebase_keys.js";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/functions";
@@ -8,15 +9,7 @@ import GoogleButton from "react-google-button";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 if (firebase.apps.length === 0) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyCN4QTl2WYLdL_72gBqiBKomMvHex7LvX4",
-    authDomain: "pmsox-92af4.firebaseapp.com",
-    projectId: "pmsox-92af4",
-    storageBucket: "pmsox-92af4.appspot.com",
-    messagingSenderId: "48250995696",
-    appId: "1:48250995696:web:96b70bf947f3418fc29335",
-    measurementId: "G-DJZJL120JK",
-  });
+  firebase.initializeApp(constants);
 }
 const auth = firebase.auth();
 // const firestore = firebase.firestore();
