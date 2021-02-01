@@ -1,10 +1,9 @@
-import axios from "axios";
-
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 import "firebase/functions";
 import "firebase/analytics";
+import GoogleButton from "react-google-button";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -28,9 +27,7 @@ function App() {
 
   let fullMessage;
   const sendMessage = () => {
-    // this is the right way to trigger a callable cloud function
     var addMessage = firebase.functions().httpsCallable("addMessage");
-
     addMessage("whats up").then((result) => {
       fullMessage = result.data;
       console.log(fullMessage);
@@ -45,9 +42,6 @@ function App() {
       {!user && <h1>Please sign into the pmsox app</h1>}
       <SignOut />
       <SignIn />
-
-      <br />
-      <button onClick={sendMessage}>Trigger sendMessage cloud func</button>
     </div>
   );
 }
@@ -58,13 +52,7 @@ function SignIn() {
     auth.signInWithPopup(provider);
   };
 
-  return (
-    !auth.currentUser && (
-      <button className="sign-in" onClick={signInWithGoogle}>
-        Sign in with Google
-      </button>
-    )
-  );
+  return !auth.currentUser && <GoogleButton onClick={signInWithGoogle} />;
 }
 
 function SignOut() {
