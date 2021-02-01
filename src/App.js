@@ -25,20 +25,11 @@ const auth = firebase.auth();
 function App() {
   const [user] = useAuthState(auth);
 
-  let fullMessage;
-  const sendMessage = () => {
-    var addMessage = firebase.functions().httpsCallable("addMessage");
-    addMessage("whats up").then((result) => {
-      fullMessage = result.data;
-      console.log(fullMessage);
-    });
-  };
-
   return (
     <div className="App">
-      {user && <h1>Welcome to PMSox {auth.currentUser.displayName}!</h1>}
-      {user && <img src={auth.currentUser.photoURL} alt="Italian Trulli"></img>}
-
+      {user && <h1>Welcome to PMSox!</h1>}
+      {user && <img src={auth.currentUser.photoURL} alt="Photo"></img>}
+      {user && <h3>Logged in as: {auth.currentUser.displayName}</h3>}
       {!user && <h1>Please sign into the pmsox app</h1>}
       <SignOut />
       <SignIn />
